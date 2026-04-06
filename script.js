@@ -50,6 +50,7 @@ btn.addEventListener("click", function () {
   titleInput.type = "text";
   titleInput.name = "title";
   titleInput.placeholder = "Enter the title";
+  console.log(titleInput.validationMessage);
 
   const authorInput = document.createElement("input");
   authorInput.type = "text";
@@ -84,6 +85,16 @@ btn.addEventListener("click", function () {
     renderInventory();
 
     dialogBox.close();
+  });
+
+  // Source - https://stackoverflow.com/a/26874243
+  // Posted by elzi, modified by community. See post 'Timeline' for change history
+  // Retrieved 2026-04-06, License - CC BY-SA 4.0
+
+  document.addEventListener("keyup", function (event) {
+    if (event.key === "Escape") {
+      dialogBox.remove();
+    }
   });
 });
 
