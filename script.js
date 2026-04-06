@@ -79,7 +79,10 @@ btn.addEventListener("click", function () {
     const title = titleInput.value.trim();
     const author = authorInput.value.trim();
 
-    if (!title || !author) return;
+    if (!title || !author) {
+      //TODO: Create a function that displays a message if input is empty
+      //* Somehow grab the invalid message and display in the UI from title input first
+    }
 
     addBookToLibrary(title, author, false);
     renderInventory();
@@ -93,7 +96,7 @@ btn.addEventListener("click", function () {
 
   document.addEventListener("keyup", function (event) {
     if (event.key === "Escape") {
-      dialogBox.remove();
+      dialogBox.close();
     }
   });
 });
