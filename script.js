@@ -50,12 +50,13 @@ btn.addEventListener("click", function () {
   titleInput.type = "text";
   titleInput.name = "title";
   titleInput.placeholder = "Enter the title";
-  console.log(titleInput.validationMessage);
+  titleInput.required = true;
 
   const authorInput = document.createElement("input");
   authorInput.type = "text";
   authorInput.name = "author";
   authorInput.placeholder = "Enter the author";
+  authorInput.required = true;
 
   const submitBtn = document.createElement("button");
   submitBtn.type = "submit";
@@ -73,18 +74,10 @@ btn.addEventListener("click", function () {
 
   dialogBox.showModal();
 
+  // TODO: Function that display a custom message if there's an error for titleInput and authorInput
+
   form.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const title = titleInput.value.trim();
-    const author = authorInput.value.trim();
-
-    if (!title || !author) {
-      //TODO: Create a function that displays a message if input is empty
-      //* Somehow grab the invalid message and display in the UI from title input first
-    }
-
-    addBookToLibrary(title, author, false);
+    addBookToLibrary(titleInput.value, authorInput.value, false);
     renderInventory();
 
     dialogBox.close();
