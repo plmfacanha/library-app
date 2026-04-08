@@ -75,6 +75,8 @@ btn.addEventListener("click", function () {
   dialogBox.showModal();
 
   // TODO: Function that display a custom message if there's an error for titleInput and authorInput
+  titleInput.required = true;
+  titleInput.setCustomValidity("Don't ya remember the title?");
 
   form.addEventListener("submit", function (e) {
     addBookToLibrary(titleInput.value, authorInput.value, false);
@@ -82,10 +84,6 @@ btn.addEventListener("click", function () {
 
     dialogBox.close();
   });
-
-  // Source - https://stackoverflow.com/a/26874243
-  // Posted by elzi, modified by community. See post 'Timeline' for change history
-  // Retrieved 2026-04-06, License - CC BY-SA 4.0
 
   document.addEventListener("keyup", function (event) {
     if (event.key === "Escape") {
