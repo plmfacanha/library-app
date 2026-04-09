@@ -51,12 +51,16 @@ btn.addEventListener("click", function () {
   titleInput.name = "title";
   titleInput.placeholder = "Enter the title";
   titleInput.required = true;
+  titleInput.minLength = 4;
+  titleInput.pattern = "\\s*\\S.*";
 
   const authorInput = document.createElement("input");
   authorInput.type = "text";
   authorInput.name = "author";
   authorInput.placeholder = "Enter the author";
   authorInput.required = true;
+  authorInput.minLength = 4;
+  authorInput.pattern = "\\s*\\S.*";
 
   const submitBtn = document.createElement("button");
   submitBtn.type = "submit";
@@ -75,13 +79,31 @@ btn.addEventListener("click", function () {
   dialogBox.showModal();
 
   // TODO: Function that display a custom message if there's an error for titleInput and authorInput
-  titleInput.required = true;
-  titleInput.setCustomValidity("Don't ya remember the title?");
+  const validateField = (input) => {
+    input.setCustomValidity("");
 
-  form.addEventListener("submit", function (e) {
-    addBookToLibrary(titleInput.value, authorInput.value, false);
+    if (input.validity.valueMissing) {
+      input.setCustomValidity("Yo! It cannot be empty!");
+    } else if (input.validity.tooShort) {
+      input.setCustomValidity("Sup! This is too short!");
+    } else if (input.validity.patternMismatch) {
+      input.setCustomValidity("Jow! This cannot be only whitespaces!!");
+    }
+
+    input.reportValidity();
+  };
+  form.addEventListener("submit", (e) => {
+    validateField(titleInput);
+    validateField(authorInput);
+
+    if (!form.checkValidity()) {
+      e.preventDefault();
+      form.reportValidity();
+      return;
+    }
+
+    addBookToLibrary(titleInput.value.trim(), authorInput.value.trim(), false);
     renderInventory();
-
     dialogBox.close();
   });
 
