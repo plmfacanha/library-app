@@ -89,13 +89,12 @@ btn.addEventListener("click", function () {
     } else if (input.validity.patternMismatch) {
       input.setCustomValidity("Jow! This cannot be only whitespaces!!");
     }
-
-    input.reportValidity();
   };
-  form.addEventListener("submit", (e) => {
-    validateField(titleInput);
-    validateField(authorInput);
 
+  titleInput.addEventListener("input", () => validateField(titleInput));
+  authorInput.addEventListener("input", () => validateField(authorInput));
+
+  form.addEventListener("submit", (e) => {
     if (!form.checkValidity()) {
       e.preventDefault();
       form.reportValidity();
